@@ -1,8 +1,9 @@
-import { parse_fon2 } from '../lib/utils'
-import fs from 'fs'
+import { Fon2Parser } from '../lib/Fon2Parser'
 import path from 'path'
 
-const fontToLoad = path.resolve('..', 'fonts', 'DBIGFONT-freedoom.fon2')
+async function main() {
+  const fontPath = path.resolve(process.cwd(), 'fonts', 'DBIGFONT-freedoom.fon2')
+  Fon2Parser.load(fontPath)
+}
 
-console.info(fontToLoad)
-
+main().catch((err)=>console.error(err))
