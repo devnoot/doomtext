@@ -2458,7 +2458,7 @@ export function rgb(rrggbb) {
         parseInt(rrggbb.substring(1, 3), 16),
         parseInt(rrggbb.substring(3, 5), 16),
         parseInt(rrggbb.substring(5, 7), 16),
-    ];
+    ] as any;
     ret.hex = rrggbb;
     return ret;
 }
