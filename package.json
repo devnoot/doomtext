@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "nodemon --exec ts-node ./test/test.ts"
+    "dev": "nodemon --exec ts-node ./.local/test/test.ts"
   },
   "keywords": [],
   "author": "",

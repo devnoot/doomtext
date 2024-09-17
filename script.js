@@ -33,7 +33,7 @@ import {
     DOOM_FONTS, FONT_CREATOR_URLS, FONT_LICENSES, DOOM2_PALETTE,
     ZDOOM_TRANSLATIONS, ZDOOM_ACS_TRANSLATION_CODES, rgb,
     SAMPLE_MESSAGES,
-} from './data.js';
+} from './lib/data.js';
 
 
 // XXX zdoom uses integers for a font's lightness range...
