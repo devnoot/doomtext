@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
     "outDir": "./dist",
+    "strict": true,
     "sourceMap": true,
     "noImplicitAny": true,
-    "moduleResolution": "node",
+    "removeComments": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true
-  }
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["lib/**/*.ts", "lib/types.d.ts"],
+  "exclude": ["node_modules/"]
 }
