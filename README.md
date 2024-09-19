@@ -36,7 +36,7 @@ writeFileSync(myText + '.png', myDoomText)
 
 ### Font list
 
-*Some of these fonts do not have a full character set.*
+*Some of these fonts do not work fully yet.*
 
 - 04FONTOK
 - APOS_BOK
