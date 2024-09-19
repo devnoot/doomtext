@@ -8,9 +8,10 @@ export class DooMTexT {
 
   public static generate(font: DoomFont, textToCreate: string) {
 
-    const fontPath = resolvePath(process.cwd(), 'lib', 'fonts', `${font}.fon2`)
+    const fontPath = resolvePath('fonts', `${font}.fon2`)
 
     if (!fs.existsSync(fontPath)) {
+      console.error(`Tried font path:${fontPath}`)
       throw new Error('Font file does not exist');
     }
 
