@@ -1,1 +1,1 @@
-export * from "./Fon2Parser";
+export * from './DoomText';

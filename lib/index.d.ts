@@ -25,5 +25,28 @@ export interface Fon2Glyph {
   dy: number;
 }
 
-export interface Fon2Img {
-}
+export interface Fon2Img {}
+
+export type DoomFont =
+  | "04FONTOK"
+  | "APOS_BOK"
+  | "DBIGFC"
+  | "DBIGFONT-chex"
+  | "DBIGFONT-freedoom"
+  | "DBIGSQ"
+  | "DOOM93_2"
+  | "ESFONTAA"
+  | "GRGW_LBO"
+  | "JENOBIG"
+  | "MINECSL2"
+  | "MINIPLWK"
+  | "MM2FONTO"
+  | "MM2SFNTO"
+  | "Q2SMFONK"
+  | "SLSKFONT"
+  | "SMSKFONT"
+  | "STAT_LWR"
+  | "STATBLWS"
+  | "TORMENTK"
+  | "UNRC"
+  | "ZD2012"
