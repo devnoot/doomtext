@@ -1,7 +1,7 @@
 {
   "name": "doomtext",
   "description": "Generate doom style text in node.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "keywords": [
@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc && cp -r ./lib/fonts ./dist",
+    "build": "tsc",
     "test": "NODE_OPTIONS='$NODE_OPTIONS --experimental-vm-modules' jest"
   },
   "author": "Anthony W. Weed <devnoot@gmail.com>",
