@@ -1,9 +1,9 @@
 {
   "name": "doomtext",
   "description": "Generate doom style text in node.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/index.js",
-  "types": "dist/types.d.ts",
+  "types": "dist/index.d.ts",
   "keywords": [
     "doom",
     "text",
@@ -11,16 +11,16 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc && cp lib/types.d.ts dist/",
+    "build": "tsc && cp -r ./lib/fonts ./dist",
     "test": "NODE_OPTIONS='$NODE_OPTIONS --experimental-vm-modules' jest"
   },
   "author": "Anthony W. Weed <devnoot@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@types/node": "^22.5.5",
     "canvas": "^2.11.2"
   },
   "devDependencies": {
+    "@types/node": "^22.5.5",
     "@babel/preset-env": "^7.25.4",
     "@types/jest": "^29.5.13",
     "babel-jest": "^29.7.0",

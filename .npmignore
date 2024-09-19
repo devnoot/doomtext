@@ -1,0 +1,8 @@
+.local/
+.zed/
+.github/
+lib/
+test/
+.babelrc
+jest.config.js
+tsconfig.json

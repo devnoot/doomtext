@@ -8,7 +8,8 @@
     "noImplicitAny": true,
     "removeComments": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
   },
   "include": ["lib/**/*.ts", "lib/types.d.ts"],
   "exclude": ["node_modules/"]

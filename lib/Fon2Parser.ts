@@ -1,6 +1,6 @@
 import { createCanvas } from "canvas";
 import fs from "fs";
-import { Color, Fon2Info, Fon2Palette } from "./types";
+import { Color, Fon2Info, Fon2Palette } from "./index.d";
 import { decodeRle, getLightness } from "./utils";
 
 export class Fon2Parser {
