@@ -83,118 +83,144 @@ export class Fon2Parser {
     };
   }
 
-  public static extractPalette(
-    data: DataView,
-    paletteSize: number,
-    offset: number,
-  ): Fon2Palette {
-    const palette: Color[] = [];
-    let minLightness = 255;
-    let maxLightness = 0;
+  /**
+     * Extracts the palette from the provided DataView.
+     *
+     * @param data {DataView} - The DataView containing the palette data.
+     * @param paletteSize {number} - The size of the palette.
+     * @param offset {number} - The offset in the DataView where the palette starts.
+     * @returns The extracted palette along with min and max lightness values.
+     */
+    public static extractPalette(
+      data: DataView,
+      paletteSize: number,
+      offset: number,
+    ): Fon2Palette {
+      const palette: Color[] = [];
+      let minLightness = 255;
+      let maxLightness = 0;
 
-    for (let i = 0; i < paletteSize + 1; i++) {
-      const color: Color = [
-        data.getUint8(offset),
-        data.getUint8(offset + 1),
-        data.getUint8(offset + 2),
-      ];
-      offset += 3;
-      palette.push(color);
+      for (let i = 0; i < paletteSize + 1; i++) {
+        const color: Color = [
+          data.getUint8(offset),
+          data.getUint8(offset + 1),
+          data.getUint8(offset + 2),
+        ];
+        offset += 3;
+        palette.push(color);
 
-      if (i !== 0 && i !== paletteSize) {
-        const lightness = getLightness(...color);
-        minLightness = Math.min(minLightness, lightness);
-        maxLightness = Math.max(maxLightness, lightness);
+        if (i !== 0 && i !== paletteSize) {
+          const lightness = getLightness(...color);
+          minLightness = Math.min(minLightness, lightness);
+          maxLightness = Math.max(maxLightness, lightness);
+        }
       }
+
+      if (maxLightness < minLightness) {
+        minLightness = 0;
+        maxLightness = 255;
+      }
+
+      return { palette, minLightness, maxLightness, offset };
     }
 
-    if (maxLightness < minLightness) {
-      minLightness = 0;
-      maxLightness = 255;
-    }
+    /**
+     * Extracts the character widths from the provided DataView based on the font information.
+     *
+     * @param dv {DataView} - The DataView containing the font data.
+     * @param fontInfo {Fon2Info} - The font information extracted from the font file.
+     * @returns An object containing the extracted character widths and the updated offset.
+     */
+    public static extractCharacterWidths(
+      dv: DataView,
+      { constantWidth, firstCharIndex, lastCharIndex, hasKerningInfo }: Fon2Info,
+    ): { widths: number[]; offset: number } {
+      let offset = 12; // byte padding before the first character width
 
-    return { palette, minLightness, maxLightness, offset };
-  }
+      const kerningInfo = hasKerningInfo
+        ? Boolean(dv.getInt16(offset, true))
+        : false;
+      kerningInfo && (offset += 2);
 
-  public static extractCharacterWidths(
-    dv: DataView,
-    { constantWidth, firstCharIndex, lastCharIndex, hasKerningInfo }: Fon2Info,
-  ): { widths: number[]; offset: number } {
-    let offset = 12; // byte padding before the first character width
+      const widths: number[] = [];
 
-    const kerningInfo = hasKerningInfo
-      ? Boolean(dv.getInt16(offset, true))
-      : false;
-    kerningInfo && (offset += 2);
-
-    const widths: number[] = [];
-
-    if (constantWidth) {
-      let width = dv.getUint16(offset, true);
-      offset += 2;
-      for (let n = firstCharIndex; n <= lastCharIndex; n++) {
-        widths.push(width);
-      }
-    } else {
-      for (let n = firstCharIndex; n <= lastCharIndex; n++) {
+      if (constantWidth) {
         let width = dv.getUint16(offset, true);
         offset += 2;
-        widths.push(width);
+        for (let n = firstCharIndex; n <= lastCharIndex; n++) {
+          widths.push(width);
+        }
+      } else {
+        for (let n = firstCharIndex; n <= lastCharIndex; n++) {
+          let width = dv.getUint16(offset, true);
+          offset += 2;
+          widths.push(width);
+        }
       }
+
+      return { widths, offset };
     }
 
-    return { widths, offset };
-  }
-  public static extractGlyphs(
-    dv: DataView,
-    { characterHeight, firstCharIndex, lastCharIndex, paletteSize }: Fon2Info,
-    { palette }: Fon2Palette,
-    charcterWidths: number[],
-    offset: number,
-  ) {
-    const glyphs: any[] = [];
+    /**
+     * Extracts the glyphs from the provided DataView based on the font information and palette.
+     *
+     * @param dv {DataView} - The DataView containing the font data.
+     * @param fontInfo {Fon2Info} - The font information extracted from the font file.
+     * @param palette {Fon2Palette} - The palette extracted from the font file.
+     * @param charcterWidths {number[]} - The widths of each character.
+     * @param offset {number} - The offset in the DataView where the glyphs start. This should be equal to t
+     * @returns An object containing the extracted glyphs.
+     */
+    public static extractGlyphs(
+      dv: DataView,
+      { characterHeight, firstCharIndex, lastCharIndex, paletteSize }: Fon2Info,
+      { palette }: Fon2Palette,
+      charcterWidths: number[],
+      offset: number,
+    ) {
+      const glyphs: any[] = [];
 
-    const pixelDecoder = decodeRle(new Uint8Array(dv.buffer, offset));
-    for (let c = firstCharIndex; c <= lastCharIndex; c++) {
-      const width = charcterWidths[c - firstCharIndex];
-      if (width === 0) {
-        continue;
-      }
-
-      const canvas = createCanvas(width, characterHeight);
-      const ctx = canvas.getContext("2d");
-      const numPixels = width * characterHeight;
-      const imgData = ctx.getImageData(0, 0, width, characterHeight);
-      const px = imgData.data;
-
-      for (let i = 0; i < numPixels; i++) {
-        if (offset === 0 || offset === paletteSize) {
+      const pixelDecoder = decodeRle(new Uint8Array(dv.buffer, offset));
+      for (let c = firstCharIndex; c <= lastCharIndex; c++) {
+        const width = charcterWidths[c - firstCharIndex];
+        if (width === 0) {
           continue;
         }
 
-        const pixel = pixelDecoder.next().value;
-        if (pixel === 0 || pixel === paletteSize) {
-          continue;
+        const canvas = createCanvas(width, characterHeight);
+        const ctx = canvas.getContext("2d");
+        const numPixels = width * characterHeight;
+        const imgData = ctx.getImageData(0, 0, width, characterHeight);
+        const px = imgData.data;
+
+        for (let i = 0; i < numPixels; i++) {
+          if (offset === 0 || offset === paletteSize) {
+            continue;
+          }
+
+          const pixel = pixelDecoder.next().value;
+          if (pixel === 0 || pixel === paletteSize) {
+            continue;
+          }
+          px[i * 4 + 0] = palette[pixel][0];
+          px[i * 4 + 1] = palette[pixel][1];
+          px[i * 4 + 2] = palette[pixel][2];
+          px[i * 4 + 3] = 255;
         }
-        px[i * 4 + 0] = palette[pixel][0];
-        px[i * 4 + 1] = palette[pixel][1];
-        px[i * 4 + 2] = palette[pixel][2];
-        px[i * 4 + 3] = 255;
+
+        ctx.putImageData(imgData, 0, 0);
+
+        const glyph = {
+          id: String.fromCodePoint(c),
+          width,
+          height: characterHeight,
+          img: canvas.toBuffer(),
+          canvas
+        };
+
+        glyphs.push(glyph);
       }
 
-      ctx.putImageData(imgData, 0, 0);
-
-      const glyph = {
-        id: String.fromCodePoint(c),
-        width,
-        height: characterHeight,
-        img: canvas.toBuffer(),
-        canvas
-      };
-
-      glyphs.push(glyph);
+      return { glyphs };
     }
-
-    return { glyphs };
-  }
 }
