@@ -1,0 +1,9 @@
+{
+  "name": "Quake 2 Small",
+  "desc": "Font used for messages in Quake II, albeit outlined.  This version is slightly modified from Jimmy's Q2SMFONO to make the kerning match how the font actually looked in Quake II.",
+  "creator": ["id Software", "Jimmy"],
+  "license": "derivative",
+  "format": "FON2",
+  "source": "\"Jimmyfonts!\" on ZDoom forums by Jimmy",
+  "source_url": "https://forum.zdoom.org/viewtopic.php?t=33409"
+}

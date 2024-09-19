@@ -1,0 +1,7 @@
+Each font has a license associated with it. See the .json file with same name.
+
+commercial: "Commercial — This was part of, or made for, a commercial product and no one has permission to use it for anything.",
+derivative: "Commercial derivative — This was derived from a commercial work and no one had permission to make it in the first place, let alone use it for anything else.",
+freeware: "Freeware — This is original work released freely online.  It has no explicit license, but given that it's useless on its own, it seems clearly intended to be used by others.",
+bsd: "BSD — This is explicitly licensed under the BSD license, meaning you can use it freely for any purpose, as long as you retain the copyright notice and license.",
+unknown: "Unknown — The license is unclear, unavailable, or unreliable.",

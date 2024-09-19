@@ -1,0 +1,9 @@
+{
+  "name": "Nought Point Four",
+  "desc": "Font based on a graphic from the Doom 0.4 alpha, extended by Jimmy.",
+  "creator": ["id Software", "Jimmy"],
+  "license": "derivative",
+  "format": "FON2",
+  "source": "\"Jimmyfonts!\" on ZDoom forums by Jimmy",
+  "source_url": "https://forum.zdoom.org/viewtopic.php?t=33409"
+}

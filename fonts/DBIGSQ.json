@@ -1,0 +1,9 @@
+{
+  "name": "DBigFont Square",
+  "desc": "Variation of Doom's menu font with squared letters.",
+  "creator": ["id Software", "Jimmy"],
+  "license": "derivative",
+  "format": "FON2",
+  "source": "\"Jimmyfonts!\" on ZDoom forums by Jimmy",
+  "source_url": "https://forum.zdoom.org/viewtopic.php?t=33409"
+}

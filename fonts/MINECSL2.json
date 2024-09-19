@@ -1,0 +1,9 @@
+{
+  "name": "Minecraftia",
+  "desc": "Font used in Minecraft.",
+  "creator": ["Mojang Software", "Jimmy"],
+  "license": "derivative",
+  "format": "FON2",
+  "source": "\"Jimmyfonts!\" on ZDoom forums by Jimmy",
+  "source_url": "https://forum.zdoom.org/viewtopic.php?t=33409",
+}

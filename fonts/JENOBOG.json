@@ -1,0 +1,9 @@
+{
+  "name": "Jenocide Big",
+  "desc": "Font used in Jimmy's Skulltag mapset, Jenocide.  Derived from the \"Archery Black\" typeface by ShyFonts, now defunct.  The original license was freeware, though it's unclear whether it approved of this particular use, but the foundry shut down so maybe license concerns are moot.",
+  "creator": ["ShyFonts", "Jimmy"],
+  "license": "unknown",
+  "format": "FON2",
+  "source": "\"Jimmyfonts!\" on ZDoom forums by Jimmy",
+  "source_url": "https://forum.zdoom.org/viewtopic.php?t=33409"
+}

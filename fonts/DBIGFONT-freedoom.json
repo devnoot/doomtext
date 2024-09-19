@@ -1,0 +1,9 @@
+{
+  "name": "Freedoom Menu",
+  "desc": "Font used for menu text and level names in Freedoom.  Seems to trace back to the Resurgence megawad, which credits it in the vague direction of Mechadon, so that's my best guess for who made the font.",
+  "creator": ["Mechadon"],
+  "license": "bsd",
+  "format": "FON2",
+  "source": "Extracted directly from the DBIGFONT lump in freedoom2.wad",
+  "source_url": "https://freedoom.github.io/"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Doom 93",
+  "desc": "Unused font that John Romero posted to Twitter, touched up by Jimmy.",
+  "creator": ["id Software", "Jimmy"],
+  "license": "commercial",
+  "format": "FON2",
+  "source": "\"Jimmyfonts!\" on ZDoom forums by Jimmy",
+  "source_url": "https://forum.zdoom.org/viewtopic.php?t=33409"
+}
